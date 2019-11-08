@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConsoleApp</name>
+    </assembly>
+    <members>
+        <member name="T:ConsoleApp.Program">
+            <summary>
+            .
+            </summary>
+        </member>
+    </members>
+</doc>
