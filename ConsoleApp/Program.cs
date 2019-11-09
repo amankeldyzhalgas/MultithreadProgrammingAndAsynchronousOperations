@@ -9,7 +9,7 @@ namespace ConsoleApp
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Class Program. 
+    /// Class Program.
     /// </summary>
     internal class Program
     {
@@ -27,27 +27,39 @@ namespace ConsoleApp
                 sum += i;
             }
 
-            Console.WriteLine($"\nThe sum of numbers from 0 to {number} is equal to {sum}\n");
+            Console.WriteLine($"The sum of numbers from 0 to {number} is equal to {sum}\n");
             Console.Write("Please enter the number(0 to exit): ");
         }
 
         private static async void CalculateAsync(ulong number, CancellationTokenSource tokenSource)
         {
-            Console.Write($"Processing...The sum of numbers from 0 to {number} is calculating. ");
+            Console.WriteLine($"Processing...The sum of numbers from 0 to {number} is calculating. ");
             await Task.Run(() => Calculate(number, tokenSource));
+        }
+
+        private static ulong GetNumber()
+        {
+            ulong number = 1;
+            bool result = false;
+            while (!result)
+            {
+                result = ulong.TryParse(Console.ReadLine(), out number);
+            }
+
+            return number;
         }
 
         private static void Main(string[] args)
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
 
-            Console.Write("Please enter the number(0 to exit): ");
-            ulong number = ulong.Parse(Console.ReadLine());
+            Console.Write("Please enter an integer number(0 to exit): ");
+            ulong number = GetNumber();
 
             while (number != 0)
             {
                 CalculateAsync(number, tokenSource);
-                number = ulong.Parse(Console.ReadLine());
+                number = GetNumber();
                 tokenSource.Cancel();
                 tokenSource.Dispose();
                 tokenSource = new CancellationTokenSource();
